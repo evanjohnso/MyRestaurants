@@ -12,6 +12,16 @@
         android:text="Restaurants near "
         android:id="@+id/locationTextView"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_below="@+id/locationTextView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </android.support.constraint.ConstraintLayout>
