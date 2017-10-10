@@ -35,7 +35,7 @@
         android:layout_above="@+id/findRestaurantsButton"
         android:layout_marginBottom="10dp"
         android:padding="5dp"
-        android:hint="Enter Zip Code"
+        android:hint="@string/enter_zip_code"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
-        android:text="Find Restaurants"
+        android:text="@string/find_restaurants"
         android:textColor="@color/colorTextIcons"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
