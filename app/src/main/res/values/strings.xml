@@ -3,4 +3,7 @@
     <string name="restaurants_near">Restaurants near</string>
     <string name="enter_zip_code">Enter Zip Code</string>
     <string name="find_restaurants">Find Restaurants</string>
+    <string name="restaurant_name">Restaurant Name</string>
+    <string name="one_cuisine_type">One Cuisine Type</string>
+    <string name="rating">Rating</string>
 </resources>

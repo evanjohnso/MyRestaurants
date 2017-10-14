@@ -1,4 +1,4 @@
-package com.evanrjohnso.myrestaurants;
+package com.evanrjohnso.myrestaurants.models;
 
 
 import java.util.ArrayList;

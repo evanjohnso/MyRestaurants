@@ -1,4 +1,7 @@
-package com.evanrjohnso.myrestaurants;
+package com.evanrjohnso.myrestaurants.services;
+
+import com.evanrjohnso.myrestaurants.Constants;
+import com.evanrjohnso.myrestaurants.models.Restaurant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
