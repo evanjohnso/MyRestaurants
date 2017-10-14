@@ -1,6 +1,7 @@
 package com.evanrjohnso.myrestaurants.adapters;
 import com.evanrjohnso.myrestaurants.R;
 import com.evanrjohnso.myrestaurants.models.Restaurant;
+import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -59,6 +60,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             mNameTextView.setText(restaurant.getName());
             mCategoryTextView.setText(restaurant.getCategories().get(0));
             mRatingTextView.setText("Rating: " + restaurant.getRating() + "/5");
+            Picasso.with(mContext).load(restaurant.getImageUrl()).into(mRestaurantImageView);
         }
     }
 
