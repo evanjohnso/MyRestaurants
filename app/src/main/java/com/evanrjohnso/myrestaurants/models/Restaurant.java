@@ -1,6 +1,5 @@
 package com.evanrjohnso.myrestaurants.models;
 
-
 import java.util.ArrayList;
 
 public class Restaurant {

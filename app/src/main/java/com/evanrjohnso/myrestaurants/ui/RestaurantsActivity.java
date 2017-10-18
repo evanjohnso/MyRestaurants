@@ -1,15 +1,12 @@
-package com.evanrjohnso.myrestaurants;
+package com.evanrjohnso.myrestaurants.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
+import com.evanrjohnso.myrestaurants.R;
 import com.evanrjohnso.myrestaurants.adapters.RestaurantListAdapter;
 import com.evanrjohnso.myrestaurants.models.Restaurant;
 import com.evanrjohnso.myrestaurants.services.YelpService;
