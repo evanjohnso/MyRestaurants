@@ -3,7 +3,7 @@ package com.evanrjohnso.myrestaurants;
 import android.os.Build;
 import android.widget.ListView;
 
-import com.evanrjohnso.myrestaurants.ui.RestaurantsActivity;
+import com.evanrjohnso.myrestaurants.ui.RestaurantListActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +17,7 @@ import static junit.framework.Assert.assertNotNull;
 @RunWith(RobolectricGradleTestRunner.class)
 
 public class RestaurantsActivityTest {
-    private RestaurantsActivity activity;
+    private RestaurantListActivity activity;
     private ListView mRestaurantListView;
 
 
