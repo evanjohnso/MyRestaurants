@@ -1,11 +1,15 @@
 package com.evanrjohnso.myrestaurants.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
+import com.evanrjohnso.myrestaurants.Constants;
 import com.evanrjohnso.myrestaurants.R;
 import com.evanrjohnso.myrestaurants.adapters.RestaurantListAdapter;
 import com.evanrjohnso.myrestaurants.models.Restaurant;
@@ -26,6 +30,8 @@ public class RestaurantListActivity extends AppCompatActivity {
     public ArrayList<Restaurant> restaurants = new ArrayList<>();
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     private RestaurantListAdapter mAdapter;
+    private SharedPreferences mSharedPreferences;
+    private String mRecentAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +39,12 @@ public class RestaurantListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurants);
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-        String userLocation = intent.getStringExtra("location");
-
-        getRestaurants(userLocation);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
+        Toast.makeText(this, mRecentAddress, Toast.LENGTH_SHORT).show();
+        if (mRecentAddress != null) {
+            getRestaurants(mRecentAddress);
+        }
     }
 
     private void getRestaurants(String location) {

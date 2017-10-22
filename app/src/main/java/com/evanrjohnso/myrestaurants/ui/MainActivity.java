@@ -3,6 +3,7 @@ package com.evanrjohnso.myrestaurants.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.evanrjohnso.myrestaurants.Constants;
 import com.evanrjohnso.myrestaurants.R;
 
 import butterknife.Bind;
@@ -28,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
+
         Typeface ostrichFont = Typeface.createFromAsset(getAssets(), "fonts/ostrich-regular.ttf");
         mAppNameTextView.setTypeface(ostrichFont);
 
@@ -35,10 +40,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String userLocation = mLocationEditText.getText().toString();
+                if (!(userLocation).equals("")) {
+                    addToSharedPreferences(userLocation);
+                }
                 Intent intent = new Intent(MainActivity.this, RestaurantListActivity.class);
-                intent.putExtra("location", userLocation);
                 startActivity(intent);
             }
         });
+
+    }
+
+    private void addToSharedPreferences(String userLocation) {
+        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, userLocation).apply();
     }
 }
