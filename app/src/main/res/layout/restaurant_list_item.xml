@@ -4,6 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!--layout_width="0dp"-->
+    <!--height="adjustable" and adjustViewBounds="true" to make images fit-->
+
     <ImageView
         android:layout_width="130dp"
         android:layout_height="100dp"
