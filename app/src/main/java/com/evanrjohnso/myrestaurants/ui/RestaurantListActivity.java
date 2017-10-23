@@ -30,8 +30,8 @@ public class RestaurantListActivity extends AppCompatActivity {
     public ArrayList<Restaurant> restaurants = new ArrayList<>();
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     private RestaurantListAdapter mAdapter;
-    private SharedPreferences mSharedPreferences;
-    private String mRecentAddress;
+//    private SharedPreferences mSharedPreferences;
+//    private String mRecentAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +39,17 @@ public class RestaurantListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurants);
         ButterKnife.bind(this);
 
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
-        Toast.makeText(this, mRecentAddress, Toast.LENGTH_SHORT).show();
-        if (mRecentAddress != null) {
-            getRestaurants(mRecentAddress);
-        }
+        Intent intent = getIntent();
+        String location = intent.getStringExtra("location");
+
+        getRestaurants(location);
+
+//        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
+//        Toast.makeText(this, mRecentAddress, Toast.LENGTH_SHORT).show();
+//        if (mRecentAddress != null) {
+//            getRestaurants(mRecentAddress);
+//        }
     }
 
     private void getRestaurants(String location) {
