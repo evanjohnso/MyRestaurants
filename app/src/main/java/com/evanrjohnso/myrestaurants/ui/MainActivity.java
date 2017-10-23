@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot recentSnapshot) {
                 for (DataSnapshot locationSnap: recentSnapshot.getChildren()) {
                     String location = locationSnap.getValue().toString();
-                    Toast.makeText(MainActivity.this, "new location" + location, Toast.LENGTH_SHORT).show();
                 }
             }
 
