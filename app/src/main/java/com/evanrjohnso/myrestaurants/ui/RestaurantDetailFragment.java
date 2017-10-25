@@ -95,7 +95,8 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
             startActivity(mapIntent);
         }
         if (view == mSaveRestaurantButton) {
-            DatabaseReference restaurantRef = FirebaseDatabase.getInstance()
+            DatabaseReference restaurantRef = FirebaseDatabase
+                    .getInstance()
                     .getReference(Constants.FIREBASE_CHILD_RESTAURANTS);
             restaurantRef.push().setValue(mRestaurant);
             Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
