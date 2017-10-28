@@ -3,6 +3,7 @@ package com.evanrjohnso.myrestaurants.ui;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -35,6 +36,9 @@ import java.util.List;
 import com.evanrjohnso.myrestaurants.R;
 import com.google.firebase.auth.FirebaseAuth;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -65,16 +69,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     private FirebaseAuth mFireAuth;
+    @OnClick(R.id.register_account_textview)
+    public void registerButtonClicked(View v) {
+        startActivity(new Intent(LoginActivity.this, CreateAccountActivity.class));
+        finish();
+    }
+    private TextView mRegisterAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
         mFireAuth = FirebaseAuth.getInstance();
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
