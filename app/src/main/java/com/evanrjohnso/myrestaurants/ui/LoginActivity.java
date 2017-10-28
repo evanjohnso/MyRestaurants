@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.evanrjohnso.myrestaurants.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -63,11 +64,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private FirebaseAuth mFireAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mFireAuth = FirebaseAuth.getInstance();
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
