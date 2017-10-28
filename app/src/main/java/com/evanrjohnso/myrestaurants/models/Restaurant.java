@@ -3,20 +3,22 @@ package com.evanrjohnso.myrestaurants.models;
 import org.parceler.Parcel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Parcel
 public class Restaurant {
-    private String name;
-    private String phone;
-    private String website;
-    private double rating;
-    private String imageUrl;
-    private ArrayList<String> address = new ArrayList<>();
-    private double latitude;
-    private double longitude;
-    private ArrayList<String> categories = new ArrayList<>();
+    String name;
+    String phone;
+    String website;
+    double rating;
+    String imageUrl;
+    List<String> address = new ArrayList<>();
+    double latitude;
+    double longitude;
+    List<String> categories = new ArrayList<>();
 
-    public Restaurant() {}
+    public Restaurant() {
+    }
 
     public Restaurant(String name, String phone, String website,
                       double rating, String imageUrl, ArrayList<String> address,
@@ -41,18 +43,18 @@ public class Restaurant {
     }
 
     public String getWebsite() {
-        return  website;
+        return website;
     }
 
     public double getRating() {
         return rating;
     }
 
-    public String getImageUrl(){
+    public String getImageUrl() {
         return imageUrl;
     }
 
-    public ArrayList<String> getAddress() {
+    public List<String> getAddress() {
         return address;
     }
 
@@ -64,7 +66,7 @@ public class Restaurant {
         return longitude;
     }
 
-    public ArrayList<String> getCategories() {
+    public List<String> getCategories() {
         return categories;
     }
 }
