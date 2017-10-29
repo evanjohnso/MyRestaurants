@@ -95,16 +95,25 @@ public class CreateAccountActivity extends AppCompatActivity implements
         final String email = mEmailEditText.getText().toString().trim();
         String password = mPasswordEditText.getText().toString().trim();
         String confirmPassword = mConfirmPasswordEditText.getText().toString().trim();
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(CreateAccountActivity.this, "Authentication Successful!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(CreateAccountActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+
+        if (confirmPasswordsEnteredMatch(password, confirmPassword)) {
+            firebaseAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(CreateAccountActivity.this, "Authentication Successful!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(CreateAccountActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+        } else {
+            mConfirmPasswordEditText.setError("Passwords did not match!");
+        }
+    }
+
+    private boolean confirmPasswordsEnteredMatch(String p1, String p2) {
+        return p1.equals(p2);
     }
 }
