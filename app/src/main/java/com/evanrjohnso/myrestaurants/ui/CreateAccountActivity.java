@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,6 +41,7 @@ public class CreateAccountActivity extends AppCompatActivity implements
     private FirebaseAuth.AuthStateListener dbAuthAcctListener;
 
     private ProgressDialog mAuthProgressDialog;
+    private String mName;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +111,7 @@ public class CreateAccountActivity extends AppCompatActivity implements
 
     private void createNewUser() {
         final String name = mNameEditText.getText().toString().trim();
+        mName = name;
         final String email = mEmailEditText.getText().toString().trim();
         String password = mPasswordEditText.getText().toString().trim();
         String confirmPassword = mConfirmPasswordEditText.getText().toString().trim();
@@ -124,6 +128,7 @@ public class CreateAccountActivity extends AppCompatActivity implements
                         mAuthProgressDialog.dismiss();
                         if (task.isSuccessful()) {
                             Toast.makeText(CreateAccountActivity.this, "Authentication Successful!", Toast.LENGTH_SHORT).show();
+                            createFirebaseUserProfile(task.getResult().getUser());
                         } else {
                             Toast.makeText(CreateAccountActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                         }
@@ -158,5 +163,23 @@ public class CreateAccountActivity extends AppCompatActivity implements
             return false;
         }
         return true;
+    }
+
+    private void createFirebaseUserProfile(final FirebaseUser user) {
+
+        UserProfileChangeRequest addProfileName = new UserProfileChangeRequest.Builder()
+                .setDisplayName(mName)
+                .build();
+
+        user.updateProfile(addProfileName)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("userNameFromFirebase", user.getDisplayName());
+                        }
+                    }
+                });
     }
 }
