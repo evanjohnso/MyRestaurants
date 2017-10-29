@@ -1,5 +1,6 @@
 package com.evanrjohnso.myrestaurants.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -37,15 +38,26 @@ public class CreateAccountActivity extends AppCompatActivity implements
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener dbAuthAcctListener;
 
+    private ProgressDialog mAuthProgressDialog;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
         ButterKnife.bind(this);
         firebaseAuth = firebaseAuth.getInstance();
+
         createAuthStateListener();
+        createAuthProgressDialog();
 
         mLoginTextView.setOnClickListener(this);
         mCreateUserButton.setOnClickListener(this);
+    }
+
+    private void createAuthProgressDialog() {
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("Loading...");
+        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
+        mAuthProgressDialog.setCancelable(false);
     }
 
     @Override
@@ -104,11 +116,12 @@ public class CreateAccountActivity extends AppCompatActivity implements
                 || !isValidName(name)
                 || !isValidPassword(password, confirmPassword))
             return;
-
+        mAuthProgressDialog.show();
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        mAuthProgressDialog.dismiss();
                         if (task.isSuccessful()) {
                             Toast.makeText(CreateAccountActivity.this, "Authentication Successful!", Toast.LENGTH_SHORT).show();
                         } else {
