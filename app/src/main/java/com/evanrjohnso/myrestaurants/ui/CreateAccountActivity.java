@@ -26,9 +26,12 @@ public class CreateAccountActivity extends AppCompatActivity implements
     Button mCreateUserButton;
     @Bind(R.id.nameEditText)
     EditText mNameEditText;
-    @Bind(R.id.emailEditText) EditText mEmailEditText;
-    @Bind(R.id.passwordEditText) EditText mPasswordEditText;
-    @Bind(R.id.confirmPasswordEditText) EditText mConfirmPasswordEditText;
+    @Bind(R.id.emailEditText)
+    EditText mEmailEditText;
+    @Bind(R.id.passwordEditText)
+    EditText mPasswordEditText;
+    @Bind(R.id.confirmPasswordEditText)
+    EditText mConfirmPasswordEditText;
     @Bind(R.id.loginTextView)
     TextView mLoginTextView;
     private FirebaseAuth firebaseAuth;
@@ -44,6 +47,7 @@ public class CreateAccountActivity extends AppCompatActivity implements
         mLoginTextView.setOnClickListener(this);
         mCreateUserButton.setOnClickListener(this);
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -96,24 +100,50 @@ public class CreateAccountActivity extends AppCompatActivity implements
         String password = mPasswordEditText.getText().toString().trim();
         String confirmPassword = mConfirmPasswordEditText.getText().toString().trim();
 
-        if (confirmPasswordsEnteredMatch(password, confirmPassword)) {
-            firebaseAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(CreateAccountActivity.this, "Authentication Successful!", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(CreateAccountActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
-                            }
+        if (!isValidEmail(email)
+                || !isValidName(name)
+                || !isValidPassword(password, confirmPassword))
+            return;
+
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(CreateAccountActivity.this, "Authentication Successful!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(CreateAccountActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                         }
-                    });
-        } else {
-            mConfirmPasswordEditText.setError("Passwords did not match!");
-        }
+                    }
+                });
     }
 
-    private boolean confirmPasswordsEnteredMatch(String p1, String p2) {
-        return p1.equals(p2);
+    private boolean isValidEmail(String email) {
+        boolean isGoodEmail =
+                (email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        if (!isGoodEmail) {
+            mEmailEditText.setError("Please enter a valid email address");
+            return false;
+        }
+        return isGoodEmail;
+    }
+
+    private boolean isValidName(String name) {
+        if (name.equals("")) {
+            mNameEditText.setError("Please enter your name");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidPassword(String password, String confirmPassword) {
+        if (password.length() < 6) {
+            mPasswordEditText.setError("Please create a password containing at least 6 characters");
+            return false;
+        } else if (!password.equals(confirmPassword)) {
+            mPasswordEditText.setError("Passwords do not match");
+            return false;
+        }
+        return true;
     }
 }
