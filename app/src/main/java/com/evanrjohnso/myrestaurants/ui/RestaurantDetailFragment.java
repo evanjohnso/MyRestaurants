@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.evanrjohnso.myrestaurants.Constants;
 import com.evanrjohnso.myrestaurants.R;
 import com.evanrjohnso.myrestaurants.models.Restaurant;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -95,10 +96,17 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
             startActivity(mapIntent);
         }
         if (view == mSaveRestaurantButton) {
+            String userId = FirebaseAuth.getInstance()
+                    .getCurrentUser().getUid();
             DatabaseReference restaurantRef = FirebaseDatabase
                     .getInstance()
-                    .getReference(Constants.FIREBASE_CHILD_RESTAURANTS);
-            restaurantRef.push().setValue(mRestaurant);
+                    .getReference(Constants.FIREBASE_CHILD_USERS)
+                    .child(userId);
+
+            String pushId = restaurantRef.push().getKey();
+            mRestaurant.setPushId(pushId);
+            restaurantRef.child(pushId).setValue(mRestaurant);
+
             Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
         }
     }
