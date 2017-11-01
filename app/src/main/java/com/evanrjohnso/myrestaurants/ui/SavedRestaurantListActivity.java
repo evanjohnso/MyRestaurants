@@ -39,9 +39,10 @@ public class SavedRestaurantListActivity extends AppCompatActivity implements On
         String userId = FirebaseAuth.getInstance()
                 .getCurrentUser().getUid();
 
-        mRestaurantReference = FirebaseDatabase.getInstance()
-                .getReference(Constants.FIREBASE_CHILD_USERS)
-                .child(userId);
+//        mRestaurantReference = FirebaseDatabase.getInstance()
+//                .getReference(Constants.FIREBASE_CHILD_USERS)
+//                .child(userId);
+
         setUpFireBaseAdapter();
     }
 
@@ -58,7 +59,7 @@ public class SavedRestaurantListActivity extends AppCompatActivity implements On
         mFirebaseAdapter = new FirebaseRestaurantListAdapter(Restaurant.class,
                 R.layout.restaurant_list_item_drag,
                 FirebaseRestaurantViewHolder.class,
-                mRestaurantReference,
+                query,
                 this,
                 this) {
             @Override

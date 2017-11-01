@@ -29,6 +29,7 @@ public class FirebaseRestaurantListAdapter extends FirebaseRecyclerAdapter<Resta
     private DatabaseReference mRef;
     private OnStartDragListener mOnStartDragListener;
     private Context mContext;
+
     private ChildEventListener mChildEventListener;
     private ArrayList<Restaurant> mRestaurants = new ArrayList<>();
 

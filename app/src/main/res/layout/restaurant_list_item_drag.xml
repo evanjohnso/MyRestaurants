@@ -9,19 +9,19 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/restaurantImageView"
             android:layout_width="130dp"
             android:layout_height="100dp"
-            android:scaleType="centerCrop" />
+            android:id="@+id/restaurantImageView"
+            android:scaleType="centerCrop"/>
 
         <ImageView
             android:id="@+id/dragIcon"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignBottom="@id/restaurantImageView"
             android:layout_alignLeft="@id/restaurantImageView"
+            android:layout_alignBottom="@id/restaurantImageView"
             android:gravity="bottom|left"
-            android:src="@mipmap/ic_reorder_white_24dp" />
+            android:src="@mipmap/ic_reorder_white_24dp"/>
 
     </RelativeLayout>
 
@@ -38,13 +38,13 @@
             android:id="@+id/restaurantNameTextView"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:text="@string/restaurant_name"
+            android:text="Restaurant Name"
             android:textColor="@color/colorPrimary"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/one_cuisine_type"
+            android:text="One Cuisine Type"
             android:id="@+id/categoryTextView"
             android:layout_below="@+id/restaurantNameTextView"
             android:layout_alignParentLeft="true"
@@ -58,7 +58,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/rating"
+                android:text="Rating"
                 android:id="@+id/ratingTextView"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"

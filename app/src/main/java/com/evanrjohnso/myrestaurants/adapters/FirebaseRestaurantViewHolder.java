@@ -4,6 +4,7 @@ package com.evanrjohnso.myrestaurants.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import com.evanrjohnso.myrestaurants.Constants;
 import com.evanrjohnso.myrestaurants.R;
 import com.evanrjohnso.myrestaurants.models.Restaurant;
 import com.evanrjohnso.myrestaurants.ui.RestaurantDetailActivity;
+import com.evanrjohnso.myrestaurants.util.ItemTouchHelperViewHolder;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +25,7 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
-public class FirebaseRestaurantViewHolder extends RecyclerView.ViewHolder {
+public class FirebaseRestaurantViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
 
@@ -54,6 +56,29 @@ public class FirebaseRestaurantViewHolder extends RecyclerView.ViewHolder {
         ratingTextView.setText("Rating: " + restaurant.getRating() + "/5");
     }
 
+    @Override
+    public void onItemSelected() {
+        Log.d("Animation", "onItemSelected");
+    }
+
+    @Override
+    public void onItemClear() {
+        Log.d("Animation", "onItemClear");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 //    @Override
 //    public void onClick(View view) {
 //        final ArrayList<Restaurant> restaurants = new ArrayList<>();
@@ -80,4 +105,3 @@ public class FirebaseRestaurantViewHolder extends RecyclerView.ViewHolder {
 //            }
 //        });
 //    }
-}
