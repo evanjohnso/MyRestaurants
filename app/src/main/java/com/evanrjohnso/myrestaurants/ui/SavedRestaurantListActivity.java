@@ -33,15 +33,9 @@ public class SavedRestaurantListActivity extends AppCompatActivity implements On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_restaurants);
         ButterKnife.bind(this);
-
-        String userId = FirebaseAuth.getInstance()
-                .getCurrentUser().getUid();
-
-//        mRestaurantReference = FirebaseDatabase.getInstance()
-//                .getReference(Constants.FIREBASE_CHILD_USERS)
-//                .child(userId);
 
         setUpFireBaseAdapter();
     }
@@ -49,6 +43,11 @@ public class SavedRestaurantListActivity extends AppCompatActivity implements On
     private void setUpFireBaseAdapter() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
+
+//        mRestaurantReference = FirebaseDatabase
+//                .getInstance()
+//                .getReference(Constants.FIREBASE_CHILD_USERS)
+//                .child(uid);
 
         Query query = FirebaseDatabase
                 .getInstance()
@@ -61,13 +60,7 @@ public class SavedRestaurantListActivity extends AppCompatActivity implements On
                 FirebaseRestaurantViewHolder.class,
                 query,
                 this,
-                this) {
-            @Override
-            protected void populateViewHolder(FirebaseRestaurantViewHolder viewHolder, Restaurant model, int position) {
-                viewHolder.bindRestaurant(model);
-            }
-
-        };
+                this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mFirebaseAdapter);
